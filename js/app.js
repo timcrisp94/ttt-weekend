@@ -13,25 +13,27 @@ const winningCombos = [
 console.log(winningCombos);
 // 4.1)
 
-const x = 1
-const o = -1
+
 
 /*---------------------------- Variables (state) ----------------------------*/
 let squares, turn, winner
 // 1)
 
 /*------------------------ Cached Element References ------------------------*/
-const boardSquares = document.querySelector(".board")
-console.log(boardSquares); 
+const board = document.querySelector(".board")
+console.log(board); 
 //  X 2.1 
 const gameStatus = document.querySelector("#message")
 console.log(gameStatus)
 //  X 2.2
 
+const gameSquares = document.querySelectorAll(".square")
+console.log(gameSquares);
+
 
 
 /*----------------------------- Event Listeners -----------------------------*/
-boardSquares.addEventListener("click", handleClick); 
+board.addEventListener("click", handleClick); 
 
 
 /*-------------------------------- Functions --------------------------------*/
@@ -44,12 +46,12 @@ init();
 function init() {
 
 	squares = [
-		null, null, null, 
+		1, -1, null, 
 		null, null, null, 
 		null, null, null];
 	console.log(squares)
 		// X 3.2.1 
-	turn = 'x'
+	turn = 1
 	// X 3.2.2)
 	winner = null;
 	// X 3.2.3)
@@ -59,19 +61,26 @@ function init() {
 	// X 3.2.4)
 }
 function render() {
-	for(let i = 0; i < squares.length; i++) {
+	squares.forEach((square, idx) => {
+		console.log(squares[idx], square, idx);
+		if (square === 1) {
+			gameSquares[idx].textContent = 'X'
+			// gameSquares[idx].style.backgroundColor = 'red';
+			} else if (square === -1) {
+			gameSquares[idx].textContent = '0'
+		}
+		}
+	)}
 	
-	}
 	
-	
-	}
+
 
 /*-----------------------------* Instructions *------------------------------*/
 
 // 3.3) render function should:
-	// 3.3.1) LOOP over board array, for each iteration:
-		// 3.3.1.1) index of the iteration to access the square in the squares array that corresponds with the current cell being iterated over in the board array
-		// 3.3.1.2) Style square dependant on the value inside current cell being iterated over (-1, 1, or null)
+	// X 3.3.1) LOOP over board array, for each iteration:
+		// X 3.3.1.1) index of the iteration to access the square in the squares array that corresponds with the current cell being iterated over in the board array
+		// ** 3.3.1.2) Style square dependant on the value inside current cell being iterated over (-1, 1, or null)
 	// 3.3.2) Render message on currrent game state:
 		// 3.3.2.1) If winner != null (game still in progress), render whose turn it is.
 			// Hint: Use ternary inside of a template literal
