@@ -1,67 +1,72 @@
 /*-------------------------------- Constants --------------------------------*/
 
+const winningCombos = [
+	[0, 1, 2],
+	[3, 4, 5],
+	[6, 7, 8],
+	[0, 3, 6],
+	[1, 4, 7],
+	[2, 5, 8],
+	[0, 4, 8],
+	[2, 4, 6]
+]
+console.log(winningCombos);
+// 4.1)
 
+const x = 1
+const o = -1
 
 /*---------------------------- Variables (state) ----------------------------*/
-let squaresArray 
-let turn
-let winner
-
+let squares, turn, winner
+// 1)
 
 /*------------------------ Cached Element References ------------------------*/
-const allSquares = document.querySelector(".square")
-console.log(allSquares);
-
-const status = document.querySelector("#message")
-console.log(status)
+const boardSquares = document.querySelector(".board")
+console.log(boardSquares); 
+//  X 2.1 
+const gameStatus = document.querySelector("#message")
+console.log(gameStatus)
+//  X 2.2
 
 
 
 /*----------------------------- Event Listeners -----------------------------*/
-
+boardSquares.addEventListener("click", handleClick); 
 
 
 /*-------------------------------- Functions --------------------------------*/
+function handleClick(event) {
+	console.log(event.target.id)
+}
 init();
+	// X 3.1
 
 function init() {
-	squaresArray = [null, null, null, null, null, null, null, null, null,];
-	const turn = {
-		'1': {
-			name: 'X'
-		}, '2': {
-			name: 'O'
-		} 
-	};
-	let winner = 
-console.log(turn);
-} 
 
-// function init() {
-// 	guessesEl.textContent = ""
-// 	messageEl.textContent = "Please enter a guess between 1 and 100!"
-// 	resetBtn.setAttribute("hidden", true)
-// 	prevGuessMsg.textContent = ""
-// 	guessList = []
-// 	isWinner = false
-// 	secretNum = Math.floor(Math.random() * 100 + 1)
-// }
-
+	squares = [
+		null, null, null, 
+		null, null, null, 
+		null, null, null];
+	console.log(squares)
+		// X 3.2.1 
+	turn = 'x'
+	// X 3.2.2)
+	winner = null;
+	// X 3.2.3)
+	// **       Winner Variable holds player value (1 or -1),
+	// **       if there's a winner; 'T' if there's a tie.
+	render();
+	// X 3.2.4)
+}
+function render() {
+	for(let i = 0; i < squares.length; i++) {
+	
+	}
+	
+	
+	}
 
 /*-----------------------------* Instructions *------------------------------*/
-
-// 3) Upon loading, the app should:
-	// X 3.1) init();
-
-	// 3.2) function: init() state variables: (Array, Turn Variable, Winner Variable)
-		// X 3.2.1) Initialize Array to 9 nulls (empty squares) 
-		// X       9 elements, each square: [0] = top-left square,    
-		// X       1] = top-middle square...[8] = bottom-right square)
-		// X 3.2.2) Initialize Turn to = (player 'X' = 1), (layer 	'O' = -1)
-		// 3.2.3) Initialize Winner Variable = to null (no winner or tie)
-		//        Winner Variable holds player value (1 or -1),
-		//        if there's a winner; 'T' if there's a tie.
-		// 3.2.4) render state variables, call a render function.
 
 // 3.3) render function should:
 	// 3.3.1) LOOP over board array, for each iteration:
@@ -78,9 +83,9 @@ console.log(turn);
 
 // 4) Define the required constants:
 
-	// 4.1) Define the 8 possible winning combinations as an array of arrays.
-	  // Each array will contain three indexes of the board that make a winner if they hold the same player value. 
-		// If stuck: winningCombos array in the solution code. 
+	// X 4.1) Define the 8 possible winning combinations as an array of arrays.
+	  // X Each array will contain three indexes of the board that make a winner if they hold the same player value. 
+		// X If stuck: winningCombos array in the solution code. 
 
 // 5) Wait for click on a square, call a handleClick function
   // handleClick function will...
@@ -134,6 +139,8 @@ console.log(turn);
 // AAU, I should be told the game ends in a tie
 // AAU, I should be given the chance to play again
 
+// 
+
 // X when completed
 
 // X 1) Required Variables (state of the game) 
@@ -145,5 +152,22 @@ console.log(turn);
 // X (not defined) a player won; a tie; game still in play;
 
 // 2) Cached Element References 
-// X 2.1) 9 elements = squares (each square a class name)
+// X 2.1) 9 elements = squares (each square a class name
 // X 2.2) element that displays the game status
+
+
+// 3) Upon loading, the app should:
+	// X 3.1) init();
+
+	// 3.2) function: init() state variables: (Array, Turn Variable, Winner Variable)
+		// X 3.2.1) Initialize Array to 9 nulls (empty squares) 
+		// **       9 elements "map" to each square: [0] = top-left square,    
+		// **       1] = top-middle square...[8] = bottom-right square)
+		// X 3.2.2) Initialize Turn to = (player 'X' = 1), (layer 	'O' = -1)
+		// X 3.2.3) Initialize Winner Variable = to null (no winner or tie)
+		// **       Winner Variable holds player value (1 or -1),
+		// **       if there's a winner; 'T' if there's a tie.
+		// X 3.2.4) render state variables, call a render function.
+
+
+// 
