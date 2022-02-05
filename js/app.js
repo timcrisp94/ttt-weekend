@@ -37,16 +37,26 @@ board.addEventListener("click", handleClick);
 
 
 /*-------------------------------- Functions --------------------------------*/
-function handleClick(event) {
-	console.log(event.target.id)
+function handleClick(event) {	
+	const index = event.target.id.replace('sq', '')
+	if (squares[index] !== null) {
+		return
+	} 
+	// X 5.2; 5.4
+	squares[index] = turn
+	turn *= -1
+	console.log(squares)
+	render()
 }
+
+
 init();
 	// X 3.1
 
 function init() {
 
 	squares = [
-		1, -1, null, 
+		null, null, null, 
 		null, null, null, 
 		null, null, null];
 	console.log(squares)
@@ -69,8 +79,17 @@ function render() {
 			} else if (square === -1) {
 			gameSquares[idx].textContent = '0'
 		}
-		}
-	)}
+		})
+	}
+
+	// if (!isWinner) {
+  //   // indicate whose turn it is
+  // } else if (winner === "T") {
+  //   // indicate a tie game
+  // } else {
+  //   // congrats to the winner!
+  // }
+
 	
 	
 
@@ -96,10 +115,10 @@ function render() {
 	  // X Each array will contain three indexes of the board that make a winner if they hold the same player value. 
 		// X If stuck: winningCombos array in the solution code. 
 
-// 5) Wait for click on a square, call a handleClick function
+// X 5) Wait for click on a square, call a handleClick function
   // handleClick function will...
-  // 5.1) Obtain the index of the square that was clicked by:
-	  // 5.1.1) "Extracting" the index from square id assigned 
+  // X 5.1) Obtain the index of the square that was clicked by:
+	  // X 5.1.1) "Extracting" the index from square id assigned 
 		// Hint: Each id corresponds with an index in our board array, 
     //       how could these be used if we cleaned them up a bit?
 
