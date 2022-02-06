@@ -11,12 +11,13 @@ const winningCombos = [
 	[2, 4, 6]
 ]
 console.log(winningCombos);
+// console.log(winningCombos.reduce())
 // 4.1)
 
 
 
 /*---------------------------- Variables (state) ----------------------------*/
-let squares, turn, winner
+let squares, turn, winner, message
 // 1)
 
 /*------------------------ Cached Element References ------------------------*/
@@ -42,7 +43,7 @@ function handleClick(event) {
 	if (squares[index] !== null) {
 		return
 	} 
-	// X 5.2; 5.4
+	// X 5.2; 5.4; 5.5
 	squares[index] = turn
 	turn *= -1
 	console.log(squares)
@@ -80,7 +81,33 @@ function render() {
 			gameSquares[idx].textContent = '0'
 		}
 		})
+		if (winner !== null) {
+			console.log(`It's ${player}'s turn`)
+		}	else if (winner === 1) {
+			console.log('Player One Wins!')
+		} else if (winner === -1) {
+			console.log('Player Two Wins!')
+		} else if (winner === 'T') {
+			console.log('The game is a tie!')
+		}
+
+		// let message = (winner !== null) ? 
+
+	} 
+	
+	function getWinner() {
+		for (let i = 0; i <= winningCombos.length; i++){
+			winner = getWinner[i]
+		}
+	} 
+
+	function checkWinner(){
+		for (let i = 0; i <= 7; i++){
+
+		}
 	}
+	
+	
 
 	// if (!isWinner) {
   //   // indicate whose turn it is
