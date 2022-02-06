@@ -11,13 +11,15 @@ const winningCombos = [
 	[2, 4, 6]
 ]
 console.log(winningCombos);
+
+
 // console.log(winningCombos.reduce())
 // 4.1)
 
 
 
 /*---------------------------- Variables (state) ----------------------------*/
-let squares, turn, winner, message
+let squares, turn, winner, turnCount, T
 // 1)
 
 /*------------------------ Cached Element References ------------------------*/
@@ -30,26 +32,18 @@ console.log(gameStatus)
 
 const gameSquares = document.querySelectorAll(".square")
 console.log(gameSquares);
+const replayDiv = document.getElementById("replay-div");
+console.log(replayDiv);
 
 
 
 /*----------------------------- Event Listeners -----------------------------*/
 board.addEventListener("click", handleClick); 
+replayDiv.addEventListener("click", init);
+
 
 
 /*-------------------------------- Functions --------------------------------*/
-function handleClick(event) {	
-	const index = event.target.id.replace('sq', '')
-	if (squares[index] !== null) {
-		return
-	} 
-	// X 5.2; 5.4; 5.5
-	squares[index] = turn
-	turn *= -1
-	console.log(squares)
-	render()
-}
-
 
 init();
 	// X 3.1
@@ -62,7 +56,9 @@ function init() {
 		null, null, null];
 	console.log(squares)
 		// X 3.2.1 
+	message = "Player 1 Choose a Square"	
 	turn = 1
+	turnCount = 0
 	// X 3.2.2)
 	winner = null;
 	// X 3.2.3)
@@ -71,7 +67,24 @@ function init() {
 	render();
 	// X 3.2.4)
 }
+
+function handleClick(event) {	
+	const index = event.target.id.replace('sq', '')
+	if (squares[index] !== null) {
+		return
+	} 
+	// X 5.2; 5.4; 5.5
+	squares[index] = turn
+	turn *= -1
+	turnCount += 1
+	console.log(turnCount)
+	console.log(squares)
+	render()
+}
+
+
 function render() {
+	gameStatus.textContent = message
 	squares.forEach((square, idx) => {
 		console.log(squares[idx], square, idx);
 		if (square === 1) {
@@ -81,51 +94,55 @@ function render() {
 			gameSquares[idx].textContent = '0'
 		}
 		})
-		if (winner !== null) {
-			console.log(`It's ${player}'s turn`)
-		}	else if (winner === 1) {
-			console.log('Player One Wins!')
-		} else if (winner === -1) {
-			console.log('Player Two Wins!')
-		} else if (winner === 'T') {
-			console.log('The game is a tie!')
-		}
+		// if (winner === null) {
+		// 	message = "It's "
+		// }	else if (winner === 1) {
+		// 	console.log('Player One Wins!')
+		// } else if (winner === -1) {
+		// 	console.log('Player Two Wins!')
+		// } else if (winner === 'T') {
+		// 	console.log('The game is a tie!')
+		// }
 
-		// let message = (winner !== null) ? 
+		getWinner()
+		// messages do not change 
 
 	} 
 	
-	function getWinner() {
-		for (let i = 0; i <= winningCombos.length; i++){
-			winner = getWinner[i]
-		}
-	} 
-
-	function checkWinner(){
-		for (let i = 0; i <= 7; i++){
-
-		}
+	function getWinner(){
+		winningCombos.forEach((combo) => {
+			if (squares[combo[0]]+
+				squares[combo[1]]+
+				squares[combo[2]]=== 3) {
+				gameStatus.textContent = 'X wins!'
+			} else if (squares[combo[0]]+
+				squares[combo[1]]+
+				squares[combo[2]] === -3) {
+				gameStatus.textContent = 'O Wins!'
+			} else if (turnCount === 9) {
+				gameStatus.textContent = "The game is a tie"
+			}
+		})
 	}
 	
+	// function getWinner(squares, winningCombos) {
+  // 
+	// }
 	
+	// function getWinner() {
+	// 	for (let i = 0; i <= winningCombos.length; i++){
+	// 		winner = getWinner[i]
+	// 	}
+	// } 
 
-	// if (!isWinner) {
-  //   // indicate whose turn it is
-  // } else if (winner === "T") {
-  //   // indicate a tie game
-  // } else {
-  //   // congrats to the winner!
-  // }
+	// function checkWinner(){
+	// 	for (let i = 0; i <= 7; i++){
 
-	
-	
-
+	// 	}
+	// }
 
 /*-----------------------------* Instructions *------------------------------*/
 
-// 3.3) render function should:
-	// X 3.3.1) LOOP over board array, for each iteration:
-		// X 3.3.1.1) index of the iteration to access the square in the squares array that corresponds with the current cell being iterated over in the board array
 		// ** 3.3.1.2) Style square dependant on the value inside current cell being iterated over (-1, 1, or null)
 	// 3.3.2) Render message on currrent game state:
 		// 3.3.2.1) If winner != null (game still in progress), render whose turn it is.
@@ -136,7 +153,7 @@ function render() {
 
 // 3.4) After completing this step, you should be able to manually change the values held in the board array in the initialization function and see the style of the corresponding square change on your page.
 
-// 4) Define the required constants:
+// X 4) Define the required constants:
 
 	// X 4.1) Define the 8 possible winning combinations as an array of arrays.
 	  // X Each array will contain three indexes of the board that make a winner if they hold the same player value. 
@@ -146,36 +163,26 @@ function render() {
   // handleClick function will...
   // X 5.1) Obtain the index of the square that was clicked by:
 	  // X 5.1.1) "Extracting" the index from square id assigned 
-		// Hint: Each id corresponds with an index in our board array, 
-    //       how could these be used if we cleaned them up a bit?
+		
+// X 5.2) If the board has a value at the index, return because that square is already taken.
 
-// 5.2) If the board has a value at the index, return because that square is already taken.
-
-// 5.3) If winner is not null, immediately return because the game is over.
+// X 5.3) If winner is not null, immediately return because the game is over.
 
 // 5.4) Update the board array at the index with the value of turn.
 
 // 5.5) Change the turn by multiplying turn by -1 (this flips a 1 to -1, and vice-versa).
 
-// 5.6) Set the winner variable if there's a winner by calling a new function: getWinner.
+// X 5.6) Set the winner variable if there's a winner by calling a new function: getWinner.
 	// The getWinner function will...
 
-	// 5.6.1) Methods to find out if there is a winner
-	// 1. (more elegant) way uses winningCombos array (see: step 4)
-	// 2. (simpler; more code) use winningCombos as a reference
-  // Choose between 1 or 2
-    
-	// 5.6.1.1) Loop through the each of the winning combination arrays defined.
-	// 5.6.1.2) Total up the three board positions using the three indexes in the current combo.
-	// 5.6.1.3) Convert the total to an absolute value (convert any negative total to positive).
-	// 5.6.1.4) If the total equals 3, we have a winner! Set the winner variable to the board's value at the index specified by the first index of that winning combination's array by returning that value.
+	// X 5.6.1) Methods to find out if there is a winner
+	// X 5.6.1.1) Loop through the each of the winning combination arrays defined.
+	// X 5.6.1.2) Total up the three board positions using the three indexes in the current combo.
+	// X 5.6.1.3) Convert the total to an absolute value (convert any negative total to positive).
+	// X 5.6.1.4) If the total equals 3, we have a winner! Set the winner variable to the board's value at the index specified by the first index of that winning combination's array by returning that value.
 
-	// 5.6.2.1) For each winning combination from step 4, find the total of each winning combination.
-	// 5.6.2.2) Convert the total to an absolute value (convert any negative total to positive)
-	// 5.6.2.3) If the total equals 3, we have a winner! Set the winner variable to the board's value at the index specified by the first index of that winning combination's array by returning that value.
-
-	// 5.6.3) Next, If there's no winner, check if there's a tie:
-  // 5.6.4) Set the winner varible to "T" if there are no more nulls in the board array by returning the string "T".
+	// X 5.6.3) Next, If there's no winner, check if there's a tie:
+  // X 5.6.4) Set the winner varible to "T" if there are no more nulls in the board array by returning the string "T".
 	// 5.6.5) Otherwise return null.
 
 // 5.7) All state has been updated, render the state to the page (step 3.3).
