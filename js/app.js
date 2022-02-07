@@ -78,12 +78,12 @@ function getWinner(){
 			squares[combo[1]]+
 			squares[combo[2]]=== 3) {
 			winner = 1	
-			message = 'X wins!'
+			message = 'X WINS!!'
 			} else if (squares[combo[0]]+
 				squares[combo[1]]+
 				squares[combo[2]] === -3) {
 				winner = -1	
-				message = 'O Wins!'
+				message = 'O WINS!!'
 			} else if (turnCount === 9) {
 				winner = 'T'
 				message = "This game is a tie!"
